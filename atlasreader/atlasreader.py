@@ -28,6 +28,7 @@ _ATLASES = [
     'neuromorphometrics',
     'talairach_ba',
     'talairach_gyrus',
+    'talairach_lobe'
 ]
 
 _DEFAULT = [
@@ -837,7 +838,7 @@ def create_output(filename, cluster_extent, atlas='default', voxel_thresh=1.96,
         )
 
         # plot clusters
-        coords = clust_frame[['peak_x', 'peak_y', 'peak_z']].get_values()
+        coords = clust_frame[['peak_x', 'peak_y', 'peak_z']].values
         for idx, coord in enumerate(coords):
             clust_fname = '{}_cluster{:02d}.png'.format(out_fname, idx + 1)
             stat_plot_params = {
@@ -856,3 +857,4 @@ def create_output(filename, cluster_extent, atlas='default', voxel_thresh=1.96,
                 stat_plot_kws = {}
             stat_plot_params.update(stat_plot_kws)
             plotting.plot_stat_map(**stat_plot_params)
+        return clust_frame
